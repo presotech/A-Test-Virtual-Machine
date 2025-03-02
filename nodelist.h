@@ -42,7 +42,7 @@ void append_token(TokenNodeList *list, Token t) {
 }
 
 TokenNode *pop_token(TokenNodeList* list) {
-    if (!list->head)     return NULL;
+    if (!list->head) return NULL;
     
     auto node = list->head;
     
