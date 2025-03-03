@@ -42,7 +42,8 @@ int main() {
     auto tokens = lex_tokens(&lexer);
     
     parse_tokens(stack, tokens);
-                             
+
+    destroy_token_list(tokens);
     destroy_lexer(lexer);
     destroy_stack(stack);
     return 0;
