@@ -68,12 +68,17 @@ TokenNode *pop_token(TokenNodeList* list) {
 
 void destroy_token_list(TokenNodeList *list) {
     auto cursor = list->head;
-    
+
     while (cursor) {
         auto current_node = cursor;
         cursor = cursor->next;
+
+        if (current_node->token.type == TOKEN_INT) {
+            free(current_node->token.value);
+        }
+
         delete current_node;
     }
-    
+
     delete list;
 }
