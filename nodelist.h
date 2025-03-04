@@ -2,6 +2,8 @@
 
 #include "token.h"
 
+#include <stdlib.h>
+
 struct TokenNode {
     Token token;
     TokenNode *next;
