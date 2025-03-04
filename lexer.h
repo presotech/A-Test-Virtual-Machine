@@ -59,6 +59,18 @@ TokenNodeList *lex_tokens(Lexer* lexer) {
                 append_token(token_list, {TOKEN_ADD, NULL});
             }
 
+            if (strcmp(buffer, "sub") == 0) {
+                append_token(token_list, {TOKEN_SUB, NULL});
+            }
+
+            if (strcmp(buffer, "mul") == 0) {
+                append_token(token_list, {TOKEN_MUL, NULL});
+            }
+
+            if (strcmp(buffer, "div") == 0) {
+                append_token(token_list, {TOKEN_DIV, NULL});
+            }
+
             if (strcmp(buffer, "print") == 0) {
                 append_token(token_list, {TOKEN_PRINT, NULL});
             }

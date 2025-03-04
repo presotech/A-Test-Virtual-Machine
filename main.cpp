@@ -152,6 +152,11 @@ void do_op(custom_stack_t& stack, int op_code, int value) {
             a = pop(stack);
             b = pop(stack);
 
+            if (a == 0) {
+                printf("We cannot divide by zero!\n");
+                return;
+            }
+
             push(stack, b / a);
             break;
         case MOD:
