@@ -166,7 +166,7 @@ void do_op(custom_stack_t& stack, int op_code, int value) {
             push(stack, b % a);
             break;
         case CMP:
-            if (value == -1) {
+            if (value == -1) { // it may be very rare for us to ever hit this...
                 printf("No value to compare to!\n");
                 return;
             }
