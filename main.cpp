@@ -18,7 +18,7 @@ struct custom_stack_t{
     int capacity;
     bool cmp_flag;
     int *values;
-    
+
     custom_stack_t(int _capacity) {
         capacity = _capacity;
         count = 0;
@@ -36,11 +36,11 @@ void parse_tokens(custom_stack_t& stack, TokenNodeList* list);
 
 int main() {
     custom_stack_t stack(1024);
-    
+
     Lexer lexer("source.asm");
-    
+
     auto tokens = lex_tokens(&lexer);
-    
+
     parse_tokens(stack, tokens);
 
     destroy_token_list(tokens);
@@ -51,7 +51,7 @@ int main() {
 
 void parse_tokens(custom_stack_t& stack, TokenNodeList* list) {
     auto cursor = list->head;
-    
+
     while (cursor) {
         switch (cursor->token.type) {
             case TOKEN_PUSH:
@@ -85,7 +85,7 @@ void parse_tokens(custom_stack_t& stack, TokenNodeList* list) {
             case TOKEN_PRINT:
                 printf("%d\n", peek(stack));
         }
-        
+
         cursor = cursor->next;
     }
 }
@@ -93,11 +93,11 @@ void parse_tokens(custom_stack_t& stack, TokenNodeList* list) {
 void push(custom_stack_t& stack, int value) {
     if (stack.count >= stack.capacity) {
         printf("The list is full, making more memory!\n");
-        
+
         stack.capacity *= 2;
         stack.values = (int*)realloc(stack.values, stack.capacity * sizeof(int));
     }
-    
+
     stack.values[stack.count++] = value;
 }
 
@@ -106,7 +106,7 @@ int peek(custom_stack_t& stack) {
         printf("The stack is FUCKING EMPTY!\n");
         return -1;
     }
-    
+
     return stack.values[stack.count - 1];
 }
 
@@ -115,47 +115,47 @@ int pop(custom_stack_t& stack) { // we about to pop off now!
         printf("How the FUCK are we supposed to pop from an EMPTY STACK!?!\n");
         return -1;
     }
-    
+
     return stack.values[--stack.count];
 }
 
 void do_op(custom_stack_t& stack, int op_code, int value) {
     int a, b;
-    
+
     if (stack.count < 2 && op_code != CMP) {
         printf("There must be at least two items to perform this action on the stack!\n");
         return;
     }
-    
+
     switch (op_code) {
         case ADD:
             a = pop(stack);
             b = pop(stack);
-            
+
             push(stack, b + a);
             break;
         case SUB:
             a = pop(stack);
             b = pop(stack);
-            
+
             push(stack, b - a);
             break;
         case MUL:
             a = pop(stack);
             b = pop(stack);
-            
+
             push(stack, b * a);
             break;
         case DIV:
             a = pop(stack);
             b = pop(stack);
-            
+
             push(stack, b / a);
             break;
         case MOD:
             a = pop(stack);
             b = pop(stack);
-            
+
             push(stack, b % a);
             break;
         case CMP:
@@ -163,16 +163,18 @@ void do_op(custom_stack_t& stack, int op_code, int value) {
                 printf("No value to compare to!\n");
                 return;
             }
-            
+
             if (stack.count < 1) {
                 printf("The stack is empty!\n");
                 return;
             }
-            
+
             stack.cmp_flag = (peek(stack) == value);
-            
+
             if (stack.cmp_flag) {
-                printf("YAY!\n");
+                printf("Matched!\n");
+            } else {
+                printf("Not matched!\n");
             }
             break;
         default:
