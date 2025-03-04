@@ -59,7 +59,9 @@ void parse_tokens(custom_stack_t& stack, TokenNodeList* list) {
                 push(stack, atoi(cursor->token.value));
                 break;
             case TOKEN_POP:
-                pop(stack);
+                if (pop(stack) == -1) {
+                    return;
+                }
                 break;
             case TOKEN_ADD:
                 do_op(stack, ADD);
@@ -103,7 +105,7 @@ void push(custom_stack_t& stack, int value) {
 
 int peek(custom_stack_t& stack) {
     if (stack.count == 0) {
-        printf("The stack is FUCKING EMPTY!\n");
+        printf("The stack is empty!\n");
         return -1;
     }
 
@@ -112,7 +114,7 @@ int peek(custom_stack_t& stack) {
 
 int pop(custom_stack_t& stack) { // we about to pop off now!
     if (stack.count == 0) {
-        printf("How the FUCK are we supposed to pop from an EMPTY STACK!?!\n");
+        printf("We cannot pop from an empty stack!\n");
         return -1;
     }
 
