@@ -34,7 +34,7 @@ TokenNodeList *lex_tokens(Lexer* lexer) {
 
     while (index < lexer->count) {
         if (lexer->source_code[index] == ' ' || lexer->source_code[index] == '\n' ||
-            lexer->source_code[index] == '\r') || lexer->source_code[index] == '\t') {index++; continue;}
+            lexer->source_code[index] == '\r' || lexer->source_code[index] == '\t') {index++; continue;}
 
         if (current_buffer_length + 1 >= BUFFER_SIZE) {
             BUFFER_SIZE *= 2;
